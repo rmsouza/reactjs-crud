@@ -20,5 +20,21 @@
     "eject": "react-scripts eject",
     "custom:build": "nodemon src/scripts/build.js --watch src/data --ext .md",
     "custom:start": "concurrently --kill-others \"npm run custom:build\" \"npm run start\""
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "charlatan": "^1.1.0",
+    "dirty-chai": "^2.0.1",
+    "eslint": "^5.16.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.17.3",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-promise": "^4.1.1",
+    "eslint-plugin-react": "^7.13.0",
+    "eslint-plugin-standard": "^4.0.0",
+    "mocha": "^6.1.4",
+    "nyc": "^14.1.1",
+    "supertest": "^4.0.2"
   }
 }
