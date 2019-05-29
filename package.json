@@ -4,6 +4,8 @@
   "license": "None provided",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.0.1",
+    "@material-ui/icons": "^4.0.1",
     "body-parser": "^1.19.0",
     "concurrently": "^3.6.0",
     "cors": "^2.8.4",
@@ -11,6 +13,7 @@
     "nodemon": "^1.17.5",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
+    "react-router-dom": "^5.0.0",
     "react-scripts": "1.1.4",
     "sqlite3": "^4.0.8"
   },

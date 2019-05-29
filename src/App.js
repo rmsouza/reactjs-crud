@@ -1,43 +1,26 @@
-import React from 'react';
+import React from 'react'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import Header from './components/layout/Header'
+import Footer from './components/layout/Footer'
+import EmployeesForm from './components/EmployeeForm'
+import Paper from '@material-ui/core/Paper'
+import './App.css'
 
-class App extends React.Component {
-  state = {
-    employees: []
-  }
-  
-  componentWillMount = () => {
-    fetch('http://localhost:8080/api/employees')
-      .then(response => response.json())
-      .then(employees => this.setState({ employees }))
-  }
-
-  render() {
-    const {
-      employees
-    } = this.state;
-
-    console.log(this.state);
-
-    return (
-      <div className="App">
-        <h1>Plexxis Employees</h1>
-        {
-          employees.map(employee => (
-            <div key={employee.id}>
-              {
-                Object.keys(employee).map(key => 
-                  <span key={key}>
-                    { key }:
-                    { employee[key] } 
-                  </span>
-                )
-              }
-            </div>
-          ))
-        }
+function App() {
+  return (
+    <div className="app">
+      <div>
+        <Header />
+        <Paper className="container">
+          <Router>
+            <Route exact path="/" component={EmployeesForm} />
+            {/* <Route path="/employees" component={Employees} /> */}
+          </Router>
+        </Paper>
+        <Footer />
       </div>
-    );
-  }
+    </div>
+  )
 }
 
-export default App;
+export default App

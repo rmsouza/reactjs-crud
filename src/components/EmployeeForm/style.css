@@ -1,0 +1,32 @@
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-row {
+  flex: 100;
+  display: flex;
+  flex-direction: row;
+}
+
+.form-row .textField {
+  width: 50%;
+}
+
+.form-row .switch {
+  margin: 10px 5px;
+}
+
+.form-actions-row {
+  margin-top: 5px;
+  padding: 10px 0;
+  border-top: solid 1px #f2f2f2;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+}
+
+.form-actions-row .button {
+  flex: 1;
+  margin: 5px;
+}
