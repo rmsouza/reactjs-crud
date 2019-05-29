@@ -100,6 +100,21 @@ module.exports = class {
     })
   }
 
+  getAll (table) {
+    if (typeof table !== 'string') {
+      return Promise.reject(Error('A valid table name should be provided'))
+    }
+
+    return new Promise((resolve, reject) => {
+      this.db.all(`SELECT * FROM ${table}`, [], (err, rows) => {
+        if (err) {
+          return reject(err)
+        }
+        return resolve(rows)
+      })
+    })
+  }
+
   getLastInsertId () {
     return new Promise((resolve, reject) => {
       this.db.all('SELECT last_insert_rowid() id', [], (err, rows) => {

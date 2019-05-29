@@ -15,6 +15,31 @@ describe('Employees', () => {
     await EmployeeBuilder.removeAll()
   })
 
+  describe(`GET ${ROUTE_BASE}`, () => {
+    let employees
+
+    beforeEach(async () => {
+      employees = await EmployeeBuilder.createMany(10)
+    })
+
+    describe('Get employees', () => {
+      it('should return employees list', done => {
+        request(app)
+          .get(`${ROUTE_BASE}`)
+          .set('Accept', 'application/json')
+          .expect('Content-Type', /json/)
+          .expect(200)
+          .end((err, res) => {
+            expect(err).to.be.equal(null)
+
+            expect(res.body.employees).to.be.lengthOf(10)
+            expect(`${res.body.employees[0].id}`).to.be.equal(`${employees[0].id}`)
+            done()
+          })
+      })
+    })
+  })
+
   describe(`GET ${ROUTE_BASE}/:id`, () => {
     let employee
 

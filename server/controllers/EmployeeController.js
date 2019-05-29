@@ -2,10 +2,29 @@ const Db = require('../models')
 const db = new Db()
 
 module.exports = {
+  list,
   get,
   create,
   update,
   remove
+}
+
+async function list (req, res) {
+  try {
+    await db.connect()
+
+    const employees = await db.getAll('employees')
+
+    res.status(200).json({
+      employees: employees || []
+    })
+  } catch (err) {
+    res.status(400).json({
+      error: err.message
+    })
+  } finally {
+    await db.close()
+  }
 }
 
 async function get (req, res) {

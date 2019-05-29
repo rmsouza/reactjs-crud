@@ -46,12 +46,14 @@ async function createOne (options = {}) {
 async function createMany (number) {
   await db.connect()
 
-  const promises = []
+  const employees = []
   for (let i = 0; i < number; i++) {
-    promises.push(createOne)
+    const obj = generateRandomEmployee()
+    await db.create('employees', obj)
+    const id = await db.getLastInsertId()
+    const employee = await db.getOne('employees', { id })
+    employees.push(employee)
   }
-
-  const employees = await Promise.all(promises)
 
   await db.close()
 

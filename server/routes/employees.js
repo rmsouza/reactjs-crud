@@ -4,6 +4,10 @@ const validateEmployee = require('../middlewares/validateEmployee')
 
 const router = express.Router()
 
+router.get('/',
+  EmployeeController.list
+)
+
 router.get('/:id',
   EmployeeController.get
 )
