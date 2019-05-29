@@ -1,0 +1,6 @@
+-reporter spec
+--recursive
+--require test/mocha.helper.js
+--slow 1000
+--ui bdd
+--timeout 2000
