@@ -4,10 +4,21 @@ const db = new Db()
 require('../../models/Employees')
 
 module.exports = {
+  getOne,
   createOne,
   createMany,
   removeAll,
   generateRandomEmployee
+}
+
+async function getOne (options = {}) {
+  await db.connect()
+
+  const employee = db.getOne('employees', options)
+
+  await db.close()
+
+  return employee
 }
 
 async function createOne (options = {}) {
@@ -61,9 +72,6 @@ function generateRandomEmployee () {
 
 async function removeAll () {
   await db.connect()
-
-  const sql = `DELETE FROM employees`
-  await db.run(sql)
-
+  await db.deleteAll('employees')
   await db.close()
 }

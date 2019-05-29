@@ -25,7 +25,6 @@ describe('Employees', () => {
     describe('Get employee', () => {
       describe('when the provided id exist', () => {
         it('should return employee data', done => {
-          console.log(request)
           request(app)
             .get(`${ROUTE_BASE}/${employee.id}`)
             .set('Accept', 'application/json')
@@ -48,7 +47,7 @@ describe('Employees', () => {
         })
       })
 
-      describe('when a non existent id is provided', () => {
+      describe('when a nonexistent id is provided', () => {
         it('should return NOT FOUND', done => {
           const id = 2
           request(app)
@@ -151,7 +150,7 @@ describe('Employees', () => {
         })
       })
 
-      describe('when an unexistent employee id is provided', () => {
+      describe('when a nonexistent employee id is provided', () => {
         it('should reject', done => {
           const body = {
             id: '123',
@@ -162,6 +161,48 @@ describe('Employees', () => {
           request(app)
             .put(`${ROUTE_BASE}`)
             .send(body)
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(404, done)
+        })
+      })
+    })
+  })
+
+  describe(`DELETE ${ROUTE_BASE}/:id`, () => {
+    let employee
+
+    beforeEach(async () => {
+      employee = await EmployeeBuilder.createOne()
+    })
+
+    describe('Remove employee', () => {
+      describe('when a valid id is provided', () => {
+        it('should remove the employee',done => {
+          request(app)
+            .del(`${ROUTE_BASE}/${employee.id}`)
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end(async (err, res) => {
+              expect(err).to.be.equal(null)
+
+              try {
+                const deletedEmployee = await EmployeeBuilder.getOne({ id: employee.id })
+                expect(deletedEmployee).to.be.equal(undefined)
+
+                done()
+              } catch (err) {
+                done(err)
+              }
+            })
+        })
+      })
+
+      describe('when a nonexistent id is provided', () => {
+        it('should reject', done => {
+          request(app)
+            .del(`${ROUTE_BASE}/222`)
             .set('Accept', 'application/json')
             .expect('Content-Type', /json/)
             .expect(404, done)

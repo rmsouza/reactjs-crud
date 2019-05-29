@@ -4,7 +4,8 @@ const db = new Db()
 module.exports = {
   get,
   create,
-  update
+  update,
+  remove
 }
 
 async function get (req, res) {
@@ -65,6 +66,33 @@ async function update (req, res) {
   } catch (err) {
     res.status(400).json({
       error: err.message
+    })
+  } finally {
+    await db.close()
+  }
+}
+
+async function remove (req, res) {
+  const id = req.params.id
+
+  try {
+    await db.connect()
+
+    const employee = await db.getOne('employees', { id })
+    if (!employee) {
+      res.status(404).json({
+        message: 'User removed successfully'
+      })
+    } else {
+      await db.deleteOne('employees', id)
+
+      res.status(200).json({
+        message: 'User removed successfully'
+      })
+    }
+  } catch (err) {
+    res.status(400).json({
+      message: err.message
     })
   } finally {
     await db.close()

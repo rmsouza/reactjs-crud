@@ -18,8 +18,8 @@ router.put('/',
   EmployeeController.update
 )
 
-// router.delete('/:id',
-//   EmployeeController.remove
-// )
+router.delete('/:id',
+  EmployeeController.remove
+)
 
 module.exports = router
