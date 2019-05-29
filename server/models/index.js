@@ -1,4 +1,4 @@
-const sqlite3 = require('sqlite3').verbose()
+const sqlite3 = require('sqlite3')
 const { DB_NAME } = require('../config/env')
 
 module.exports = class {
