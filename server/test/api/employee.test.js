@@ -100,19 +100,71 @@ describe('Employees', () => {
             .expect(400, done)
         })
       })
+    })
+  })
 
-      describe('when a invalid color is provided', () => {
-        it('should reject', done => {
+  describe(`PUT ${ROUTE_BASE}`, () => {
+    let employee
+
+    beforeEach(async () => {
+      employee = await EmployeeBuilder.createOne()
+    })
+
+    describe('Update employee', () => {
+      describe('when a valid data are provided', () => {
+        it('should update the employee', done => {
           const body = {
-            color: 'xxx'
+            id: employee.id,
+            name: 'Steve',
+            code: 'XYZ'
           }
 
           request(app)
-            .post(`${ROUTE_BASE}`)
+            .put(`${ROUTE_BASE}`)
+            .send(body)
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(202)
+            .end((err, res) => {
+              expect(err).to.be.equal(null)
+
+              expect(res.body.employee.name).to.be.equal(body.name)
+              expect(res.body.employee.code).to.be.equal(body.code)
+              done()
+            })
+        })
+      })
+
+      describe('when a invalid name is provided', () => {
+        it('should reject', done => {
+          const body = {
+            id: employee.id,
+            name: ''
+          }
+
+          request(app)
+            .put(`${ROUTE_BASE}`)
             .send(body)
             .set('Accept', 'application/json')
             .expect('Content-Type', /json/)
             .expect(400, done)
+        })
+      })
+
+      describe('when an unexistent employee id is provided', () => {
+        it('should reject', done => {
+          const body = {
+            id: '123',
+            name: 'Steve',
+            code: 'XYZ'
+          }
+
+          request(app)
+            .put(`${ROUTE_BASE}`)
+            .send(body)
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(404, done)
         })
       })
     })

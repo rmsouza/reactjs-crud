@@ -8,24 +8,5 @@ module.exports = (req, res, next) => {
     })
   }
 
-  // Validate color
-  if (validateColor(body.color)) {
-    return res.status(400).json({
-      error: 'Color should be a valid hexadecimal value'
-    })
-  }
-
   next()
-}
-
-function validateColor (color) {
-  if (!color) {
-    return true
-  }
-  return isHexadecimal(color)
-}
-
-function isHexadecimal (str) {
-  const regexp = /^[0-9a-fA-F]+$/
-  return regexp.test(str)
 }

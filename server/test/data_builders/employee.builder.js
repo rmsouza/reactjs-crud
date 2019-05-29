@@ -17,7 +17,7 @@ async function createOne (options = {}) {
     name: options.name || Charlatan.Name.name(),
     code: options.code || Charlatan.Number.number(4),
     profession: options.profession || Charlatan.Name.name(),
-    color: options.color || Charlatan.Number.hexadecimal(6),
+    color: options.color || `#${Charlatan.Number.hexadecimal(6)}`,
     city: options.city || Charlatan.Address.city(),
     branch: options.branch || Charlatan.Name.name(),
     assigned: options.assigned || 0

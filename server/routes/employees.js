@@ -13,4 +13,13 @@ router.post('/',
   EmployeeController.create
 )
 
+router.put('/',
+  validateEmployee,
+  EmployeeController.update
+)
+
+// router.delete('/:id',
+//   EmployeeController.remove
+// )
+
 module.exports = router

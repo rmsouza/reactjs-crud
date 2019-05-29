@@ -3,7 +3,8 @@ const db = new Db()
 
 module.exports = {
   get,
-  create
+  create,
+  update
 }
 
 async function get (req, res) {
@@ -38,6 +39,29 @@ async function create (req, res) {
     res.status(201).json({
       employee
     })
+  } catch (err) {
+    res.status(400).json({
+      error: err.message
+    })
+  } finally {
+    await db.close()
+  }
+}
+
+async function update (req, res) {
+  const body = req.body
+
+  try {
+    await db.connect()
+    const employee = await db.update('employees', body)
+
+    if (!employee) {
+      res.status(404).json({})
+    } else {
+      res.status(202).json({
+        employee
+      })
+    }
   } catch (err) {
     res.status(400).json({
       error: err.message

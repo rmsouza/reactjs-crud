@@ -52,6 +52,35 @@ module.exports = class {
     return this.getOne(table, { id })
   }
 
+  async update (table, obj) {
+    if (typeof obj !== 'object' || typeof table !== 'string') {
+      return Promise.reject(Error('A valid object and table name should be provided'))
+    }
+
+    if (!obj.id) {
+      return Promise.reject(Error('The id should be provide to update'))
+    }
+
+    const id = obj.id
+    delete obj.id
+    const placeholders = Object.keys(obj).map(key => `${key}=?`).join(',')
+    const values = Object.values(obj)
+    values.push(id)
+
+    const sql = `UPDATE ${table} SET ${placeholders} WHERE id = ?`
+
+    await new Promise((resolve, reject) => {
+      this.db.run(sql, values, (err) => {
+        if (err) {
+          return reject(err)
+        }
+        resolve()
+      })
+    })
+
+    return this.getOne(table, { id })
+  }
+
   getOne (table, obj) {
     if (typeof obj !== 'object' || typeof table !== 'string') {
       return Promise.reject(Error('A valid object and table name should be provided'))

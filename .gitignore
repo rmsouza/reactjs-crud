@@ -22,3 +22,5 @@ yarn-error.log*
 
 # db
 /server/db/*
+
+.nyc_output/*
