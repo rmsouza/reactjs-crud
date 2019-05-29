@@ -28,7 +28,7 @@ module.exports = class {
     })
   }
 
-  create (table, obj) {
+  async create (table, obj) {
     if (typeof obj !== 'object' || typeof table !== 'string') {
       return Promise.reject(Error('A valid object and table name should be provided'))
     }
@@ -39,7 +39,7 @@ module.exports = class {
 
     const sql = `INSERT INTO ${table}(${columns}) VALUES (${placeholders})`
 
-    return new Promise((resolve, reject) => {
+    await new Promise((resolve, reject) => {
       this.db.run(sql, values, (err) => {
         if (err) {
           return reject(err)
@@ -47,6 +47,9 @@ module.exports = class {
         resolve()
       })
     })
+
+    const id = await this.getLastInsertId()
+    return this.getOne(table, { id })
   }
 
   getOne (table, obj) {

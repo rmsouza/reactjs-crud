@@ -59,4 +59,62 @@ describe('Employees', () => {
       })
     })
   })
+
+  describe(`POST ${ROUTE_BASE}`, () => {
+    describe('Create employee', () => {
+      describe('when a valid employee data are provided', () => {
+        it('should create a new employee', done => {
+          const body = EmployeeBuilder.generateRandomEmployee()
+
+          request(app)
+            .post(`${ROUTE_BASE}`)
+            .send(body)
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(201)
+            .end((err, res) => {
+              expect(err).to.be.equal(null)
+
+              expect(res.body.employee.name).to.be.equal(body.name)
+              expect(res.body.employee.code).to.be.equal(body.code)
+              expect(res.body.employee.profession).to.be.equal(body.profession)
+              expect(res.body.employee.color).to.be.equal(body.color)
+              expect(res.body.employee.city).to.be.equal(body.city)
+              expect(res.body.employee.branch).to.be.equal(body.branch)
+              expect(res.body.employee.assigned).to.be.equal(body.assigned)
+              done()
+            })
+        })
+      })
+
+      describe('when the name provided is empty', () => {
+        it('should reject', done => {
+          const body = EmployeeBuilder.generateRandomEmployee()
+          body.name = ''
+
+          request(app)
+            .post(`${ROUTE_BASE}`)
+            .send(body)
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(400, done)
+        })
+      })
+
+      describe('when a invalid color is provided', () => {
+        it('should reject', done => {
+          const body = {
+            color: 'xxx'
+          }
+
+          request(app)
+            .post(`${ROUTE_BASE}`)
+            .send(body)
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(400, done)
+        })
+      })
+    })
+  })
 })

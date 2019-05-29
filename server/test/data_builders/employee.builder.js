@@ -52,7 +52,7 @@ function generateRandomEmployee () {
     name: Charlatan.Name.name(),
     code: Charlatan.Number.number(4),
     profession: Charlatan.Name.name(),
-    color: Charlatan.Number.hexadecimal(6),
+    color: `#${Charlatan.Number.hexadecimal(6)}`,
     city: Charlatan.Address.city(),
     branch: Charlatan.Name.name(),
     assigned: 0

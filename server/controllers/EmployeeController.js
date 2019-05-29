@@ -28,3 +28,21 @@ async function get (req, res) {
     await db.close()
   }
 }
+
+async function create (req, res) {
+  try {
+    await db.connect()
+
+    const employee = await db.create('employees', req.body)
+
+    res.status(201).json({
+      employee
+    })
+  } catch (err) {
+    res.status(400).json({
+      error: err.message
+    })
+  } finally {
+    await db.close()
+  }
+}
