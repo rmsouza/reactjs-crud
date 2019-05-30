@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import TextField from '@material-ui/core/TextField'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import Switch from '@material-ui/core/Switch'
 import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
 import SubHeader from './SubHeader'
+import Input from '../common/Input'
+import Select from '../common/Select'
+import SwitchButton from '../common/SwitchButton'
 import history from '../../history'
 import './style.css'
 import { createEmployee, getEmployee, updateEmployee, clearEmployee } from '../../actions'
@@ -36,7 +36,7 @@ class EmployeeForm extends Component {
   componentDidUpdate() {
     const { employee } = this.props
     if (employee.id && this.state.employee.id === '') {
-      employee.assigned = employee.assigned === '1' ? true : false
+      employee.assigned = employee.assigned === 1 ? true : false
       this.setState({ employee: employee })
     }
   }
@@ -83,108 +83,22 @@ class EmployeeForm extends Component {
             autoComplete="off">
 
             <div className="form-row">
-              <TextField
-                id="name"
-                name="name"
-                label="Name"
-                value={employee.name}
-                onChange={this.handleChange}
-                className="textField"
-                variant="outlined"
-                margin="dense"
-                style={styles.textField}
-                required={true}
-              />
-
-              <TextField
-                id="code"
-                name="code"
-                label="Code"
-                value={employee.code}
-                onChange={this.handleChange}
-                className="textField"
-                variant="outlined"
-                margin="dense"
-                style={styles.textField}
-                required={true}
-              />
+              <Input name="name" label="Name" value={employee.name} required={true} handleChange={this.handleChange} />
+              <Input name="code" label="Code" value={employee.code} required={true} handleChange={this.handleChange} />
             </div>
 
             <div className="form-row">
-              <TextField
-                id="profession"
-                name="profession"
-                label="Profession"
-                value={employee.profession}
-                onChange={this.handleChange}
-                className="textField"
-                variant="outlined"
-                margin="dense"
-                style={styles.textField}
-              />
-
-              <TextField
-                id="color"
-                name="color"
-                label="Color"
-                value={employee.color}
-                onChange={this.handleChange}
-                className="textField"
-                variant="outlined"
-                margin="dense"
-                style={styles.textField}
-              />
+              <Input name="profession" label="Profession" value={employee.profession} handleChange={this.handleChange} />
+              <Input name="color" label="Color" value={employee.color} handleChange={this.handleChange} />
             </div>
 
             <div className="form-row">
-              <TextField
-                id="city"
-                name="city"
-                select
-                label="City"
-                value={employee.city}
-                onChange={this.handleChange}
-                SelectProps={{
-                  native: true
-                }}
-                margin="dense"
-                variant="outlined"
-                className="textField"
-                style={styles.textField}
-              >
-                <option value=""></option>
-                {cities.map(option => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </TextField>
-
-              <TextField
-                id="branch"
-                name="branch"
-                label="Branch"
-                value={employee.branch}
-                onChange={this.handleChange}
-                className="textField"
-                variant="outlined"
-                margin="dense"
-                style={styles.textField}
-              />
+              <Select name="city" label="City" value={employee.city} options={cities} handleChange={this.handleChange} />      
+              <Input name="branch" label="Branch" value={employee.branch} handleChange={this.handleChange} />
             </div>
 
             <div className="form-row">
-              <FormControlLabel
-                className="switch"
-                control={
-                  <Switch
-                    name="assigned"
-                    checked={employee.assigned}
-                    onChange={this.handleCheckboxChange}
-                    value={employee.assigned} />
-                }
-                label="Assigned"
-              />
+              <SwitchButton name="assigned" label="Assigned" value={employee.assigned} handleChange={this.handleCheckboxChange} />
             </div>
 
             <div className="form-actions-row">
@@ -202,20 +116,6 @@ class EmployeeForm extends Component {
         </Paper>
       </React.Fragment>
     )
-  }
-}
-
-const styles = {
-  textField: {
-    marginLeft: '5px',
-    marginRight: '5px'
-  },
-  title: {
-    margin: '5px 5px'
-  },
-  divider: {
-    marginTop: '10px',
-    marginBottom: '10px'
   }
 }
 
