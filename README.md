@@ -54,6 +54,6 @@ curl -H "Content-type:application/json" \
 
 # Important Notes
 
-The chosen architecture was defined considering the most used technologies in the Node.js context like Express, trying to follow the best practices of code styling, tests and RESTful API patterns.
+The chosen architecture was defined considering the most commonly used technologies in the Node.js and React, following the best practices of code styling, tests and RESTful API patterns. A bunch of other things and improvements could be implemented like testing coverage, authentication, security modules, etc.
 
 ### Made with ❤ by Rafael de Souza
