@@ -51,10 +51,12 @@ async function get (req, res) {
 }
 
 async function create (req, res) {
+  const body = req.body
   try {
     await db.connect()
 
-    const employee = await db.create('employees', req.body)
+    body.assigned = body.assigned === 'true' ? 1 : 0
+    const employee = await db.create('employees', body)
 
     res.status(201).json({
       employee
