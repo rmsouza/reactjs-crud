@@ -28,7 +28,7 @@
     "start": "concurrently --kill-others \"node server\" \"npm run start:react-app\"",
     "start:react-app": "react-scripts start",
     "build": "react-scripts build",
-    "test": "nyc ./node_modules/.bin/_mocha 'server/test/**/*.test.js' --exit && npm run lint",
+    "test": "nyc ./node_modules/.bin/_mocha 'server/test/**/*.test.js' --exit",
     "eject": "react-scripts eject",
     "custom:build": "nodemon src/scripts/build.js --watch src/data --ext .md",
     "custom:start": "concurrently --kill-others \"npm run custom:build\" \"npm run start\""
