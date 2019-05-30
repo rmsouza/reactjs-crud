@@ -5,6 +5,7 @@ export const GET_EMPLOYEES = 'GET_EMPLOYEES'
 export const RECEIVE_EMPLOYEES = 'RECEIVE_EMPLOYEES'
 export const CREATE_EMPLOYEE = 'CREATE_EMPLOYEE'
 export const RECEIVE_EMPLOYEE = 'RECEIVE_EMPLOYEE'
+export const UPDATE_EMPLOYEE = 'UPDATE_EMPLOYEE'
 export const REMOVE_EMPLOYEE = 'REMOVE_EMPLOYEE'
 
 const apiUrl = 'http://localhost:8080/api/employees'
@@ -12,6 +13,7 @@ const apiUrl = 'http://localhost:8080/api/employees'
 export const createEmployee = (employee) => {
   return async (dispatch) => {
     try {
+      delete employee.id
       const response = await axios.post(`${apiUrl}`, employee)
       await dispatch({ type: CREATE_EMPLOYEE, payload: response.data.employee })
 
@@ -27,6 +29,30 @@ export const getEmployees = () => {
     try {
       const response = await axios.get(`${apiUrl}`)
       await dispatch(receiveEmployees(response.data.employees))
+    } catch (err) {
+      throw (err)
+    }
+  }
+}
+
+export const getEmployee = (id) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${apiUrl}/${id}`)
+      await dispatch({ type: RECEIVE_EMPLOYEE, payload: response.data.employee })
+    } catch (err) {
+      throw (err)
+    }
+  }
+}
+
+export const updateEmployee = (employee) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.put(`${apiUrl}`, employee)
+      await dispatch({ type: UPDATE_EMPLOYEE, payload: response.data.employee })
+
+      history.push('/')
     } catch (err) {
       throw (err)
     }

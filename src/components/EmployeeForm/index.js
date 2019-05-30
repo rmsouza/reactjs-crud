@@ -8,13 +8,14 @@ import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
 import { Link } from 'react-router-dom'
 import './style.css'
-import { createEmployee } from '../../actions'
+import { createEmployee, getEmployee, updateEmployee } from '../../actions'
 
 const cities = ['Toronto', 'Brampton', 'Mississauga', 'Hamilton']
 
 class EmployeeForm extends Component {
   state = {
     employee: {
+      id: '',
       name: '',
       code: '',
       profession: '',
@@ -24,6 +25,20 @@ class EmployeeForm extends Component {
       assigned: true
     },
     submitted: false
+  }
+
+  componentDidMount() {
+    if (this.props.match.params.id) {
+      this.props.getEmployee(this.props.match.params.id)
+    }
+  }
+
+  componentDidUpdate() {
+    const { employee } = this.props
+    if (employee.id && this.state.employee.id === '') {
+      employee.assigned = employee.assigned === '1' ? true : false
+      this.setState({ employee: employee })
+    }
   }
   
   handleChange = (e) => {
@@ -41,11 +56,16 @@ class EmployeeForm extends Component {
   handleSubmit = (event) => {
     event.preventDefault()
     this.setState({ submitted: true })
-    this.props.createEmployee(this.state.employee)
+
+    if (this.state.employee.id === '') {
+      this.props.createEmployee(this.state.employee)
+    } else {
+      this.props.updateEmployee(this.state.employee)
+    }
   }
 
   render() {
-    const { employee } = this.state
+    let { employee } = this.state
 
     return (
       <React.Fragment>
@@ -166,7 +186,12 @@ class EmployeeForm extends Component {
 
           <div className="form-actions-row">
             <Button variant="outlined" className="button" component={Link} to="/" >Cancel</Button>
-            <Button type="submit" variant="contained" className="button" color="primary">
+            <Button 
+              type="submit"
+              variant="contained"
+              className="button"
+              disabled={this.state.submitted}
+              color="primary">
               Save
             </Button>
           </div>
@@ -190,6 +215,7 @@ const styles = {
   }
 }
 
-const mapDispatchToProps = { createEmployee }
+const mapStateToProps = (state) => ({ employee: state.employee })
+const mapDispatchToProps = { createEmployee, getEmployee, updateEmployee }
 
-export default connect(null, mapDispatchToProps)(EmployeeForm)
+export default connect(mapStateToProps, mapDispatchToProps)(EmployeeForm)
