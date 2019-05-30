@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import TextField from '@material-ui/core/TextField'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Switch from '@material-ui/core/Switch'
@@ -6,13 +7,14 @@ import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
 import './style.css'
+import { createEmployee } from '../../actions'
+import { Link } from 'react-router-dom'
 
 const cities = ['Toronto', 'Brampton', 'Mississauga', 'Hamilton']
 
 class EmployeeForm extends Component {
   state = {
     employee: {
-      id: '',
       name: '',
       code: '',
       profession: '',
@@ -31,12 +33,15 @@ class EmployeeForm extends Component {
   };
 
   handleCheckboxChange = (e) => {
-    console.log(e.target.name)
-    this.setState({ [e.target.name]: e.target.checked })
+    const employee = this.state.employee
+    employee[e.target.name] = e.target.checked
+    this.setState({ employee })
   }
 
-  handleSubmit = () => {
+  handleSubmit = (event) => {
+    event.preventDefault()
     this.setState({ submitted: true })
+    this.props.createEmployee(this.state.employee)
   }
 
   render() {
@@ -160,7 +165,7 @@ class EmployeeForm extends Component {
           </div>
 
           <div className="form-actions-row">
-            <Button variant="outlined" className="button">Cancel</Button>
+            <Button variant="outlined" className="button" component={Link} to="/" >Cancel</Button>
             <Button type="submit" variant="contained" className="button" color="primary">
               Save
             </Button>
@@ -185,4 +190,6 @@ const styles = {
   }
 }
 
-export default EmployeeForm
+const mapDispatchToProps = { createEmployee }
+
+export default connect(null, mapDispatchToProps)(EmployeeForm)
