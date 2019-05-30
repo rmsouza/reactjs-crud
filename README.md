@@ -21,7 +21,7 @@ npm test
 ```
 
 ## API Doc
-Only one simple example how make a request in the API.
+Only one simple example of how to make a request in the API.
 
 ### Create Employee
 URL: /api/employees
