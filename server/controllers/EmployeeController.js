@@ -75,6 +75,8 @@ async function update (req, res) {
 
   try {
     await db.connect()
+
+    body.assigned = body.assigned === 'true' ? 1 : 0
     const employee = await db.update('employees', body)
 
     if (!employee) {
