@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 require('./models/Employees')
 
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: '*', // Just in order to allow API tests from postman or curl for instance
   optionsSuccessStatus: 200
 }
 

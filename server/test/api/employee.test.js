@@ -203,7 +203,7 @@ describe('Employees', () => {
 
     describe('Remove employee', () => {
       describe('when a valid id is provided', () => {
-        it('should remove the employee',done => {
+        it('should remove the employee', done => {
           request(app)
             .del(`${ROUTE_BASE}/${employee.id}`)
             .set('Accept', 'application/json')

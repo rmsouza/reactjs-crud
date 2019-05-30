@@ -165,7 +165,7 @@ module.exports = class {
           return reject(err)
         }
         return resolve()
-      });
+      })
     })
   }
 }
