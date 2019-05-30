@@ -1,6 +1,6 @@
 # Employees CRUD
 
-A web application based on [React JS](https://reactjs.org) interfaces, RESTful API Node.js using [Express 4](http://expressjs.com/) and [SQLite](https://www.sqlite.org).
+A web application based on [React JS](https://reactjs.org) interfaces, RESTful API [Node.js](https://nodejs.org) using [Express 4](http://expressjs.com/) and [SQLite](https://www.sqlite.org).
 
 ## Running Locally
 
