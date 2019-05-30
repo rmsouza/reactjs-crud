@@ -17,21 +17,21 @@ class EmployeeList extends Component {
 
   render () {
     const { employees } = this.props
+    let table;
 
     if (employees.length) {
-      return (
-        <React.Fragment>
-          <SubHeader />
-
-          <Paper className="panel">
-            <Table employees={employees} handleEdit={this.handleEdit} handleDelete={this.handleDelete} />
-          </Paper>
-        </React.Fragment>
-      )  
-    } else {
-      return (<React.Fragment />)
+      table = <Table employees={employees} handleEdit={this.handleEdit} handleDelete={this.handleDelete} />
     }
-    
+
+    return (
+      <React.Fragment>
+        <SubHeader />
+
+        <Paper className="panel">
+          { table }
+        </Paper>
+      </React.Fragment>
+    )
   }
 }
 

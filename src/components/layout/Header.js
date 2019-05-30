@@ -22,12 +22,4 @@ function Header () {
   )
 }
 
-const styles = {
-  title: {
-    textAlign: 'center',
-    marginTop: '10px',
-    marginBottom: '20px'
-  }
-}
-
 export default Header
