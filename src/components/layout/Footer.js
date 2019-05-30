@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography'
 function Footer () {
   return (
     <div>
-      <Typography style={ styles.title } variant="p" component="p">
+      <Typography style={ styles.title } variant="subtitle2" component="h1">
         Made with ❤ by Rafael de Souza
       </Typography>
     </div>
