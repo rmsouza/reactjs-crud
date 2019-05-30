@@ -4,7 +4,7 @@ import Footer from './layout/Footer'
 import EmployeeForm from './EmployeeForm'
 import EmployeeList from './EmployeeList'
 import Paper from '@material-ui/core/Paper'
-import { Router, Route, Link } from 'react-router-dom'
+import { Router, Route } from 'react-router-dom'
 import './App.css'
 import history from '../history'
 
@@ -16,7 +16,8 @@ function App() {
           <Router history={history}>
             <Paper className="container">
               <Route exact path="/" component={EmployeeList} />
-              <Route path="/employees/create" component={EmployeeForm} />
+              <Route exact path="/employees/create" component={EmployeeForm} />
+              <Route exact path="/employees/:id/edit" component={EmployeeForm} />
             </Paper>
           </Router>
         <Footer />

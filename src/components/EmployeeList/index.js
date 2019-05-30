@@ -3,6 +3,9 @@ import { connect } from 'react-redux'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import AddIcon from '@material-ui/icons/Add'
+import IconButton from '@material-ui/core/IconButton'
+import DeleteIcon from '@material-ui/icons/Delete'
+import EditIcon from '@material-ui/icons/Edit'
 import { Link } from 'react-router-dom'
 import history from '../../history'
 import { deleteEmployee } from '../../actions'
@@ -12,7 +15,7 @@ import 'react-table/react-table.css'
 
 class EmployeeList extends Component {
   handleEdit = (employee) => {
-    history.push(`/employees/edit?id=${employee.id}`)
+    history.push(`/employees/${employee.id}/edit`)
   }
 
   handleDelete = (employee) => {
@@ -37,18 +40,31 @@ class EmployeeList extends Component {
           <ReactTable
             data={employees}
             columns={[
-              { Header: "Name", accessor: "name" },
-              { Header: "Code", accessor: "code" },
-              { Header: "Profession", accessor: "profession" },
-              { Header: "Color", accessor: "color" },
-              { Header: "City", accessor: "city" },
-              { Header: "Branch", accessor: "branch" },
+              { Header: 'Name', accessor: 'name' },
+              { Header: 'Code', accessor: 'code' },
+              { Header: 'Profession', accessor: 'profession' },
+              { Header: 'Color', accessor: 'color' },
+              { Header: 'City', accessor: 'city' },
+              { Header: 'Branch', accessor: 'branch' },
+              {
+                Header: 'Assigned',
+                className: 'align-center',
+                Cell: row => (
+                  <div>
+                    { row.original.assigned ? 'Yes' : 'No' }
+                  </div>
+                )
+              },
               {
                 Header: '',
                 Cell: row => (
-                  <div>
-                    <button onClick={() => this.handleEdit(row.original)}>Edit</button>
-                    <button onClick={() => this.handleDelete(row.original)}>Delete</button>
+                  <div className="col-options">
+                    <IconButton aria-label="Edit" onClick={() => this.handleEdit(row.original)}>
+                      <EditIcon fontSize="small" />
+                    </IconButton>
+                    <IconButton aria-label="Delete" onClick={() => this.handleDelete(row.original)}>
+                      <DeleteIcon fontSize="small" />
+                    </IconButton>
                   </div>
                 )
               }
