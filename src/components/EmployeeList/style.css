@@ -1,0 +1,19 @@
+.sub-header {
+  padding: 20px 0;
+  display: flex;
+  justify-content: end;
+  flex-direction: row;
+}
+
+.sub-header .buttons {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+@media only screen and (max-width: 768px) {
+  .sub-header {
+    margin: 0 10px;
+  }
+}
