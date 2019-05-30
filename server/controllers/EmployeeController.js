@@ -55,7 +55,7 @@ async function create (req, res) {
   try {
     await db.connect()
 
-    body.assigned = body.assigned === 'true' ? 1 : 0
+    body.assigned = body.assigned ? 1 : 0
     const employee = await db.create('employees', body)
 
     res.status(201).json({
@@ -76,7 +76,7 @@ async function update (req, res) {
   try {
     await db.connect()
 
-    body.assigned = body.assigned === 'true' ? 1 : 0
+    body.assigned = body.assigned ? 1 : 0
     const employee = await db.update('employees', body)
 
     if (!employee) {
