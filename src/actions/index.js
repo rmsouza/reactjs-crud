@@ -7,6 +7,7 @@ export const CREATE_EMPLOYEE = 'CREATE_EMPLOYEE'
 export const RECEIVE_EMPLOYEE = 'RECEIVE_EMPLOYEE'
 export const UPDATE_EMPLOYEE = 'UPDATE_EMPLOYEE'
 export const REMOVE_EMPLOYEE = 'REMOVE_EMPLOYEE'
+export const CLEAR_EMPLOYEE = 'CLEAR_EMPLOYEE'
 
 const apiUrl = 'http://localhost:8080/api/employees'
 
@@ -51,6 +52,7 @@ export const updateEmployee = (employee) => {
     try {
       const response = await axios.put(`${apiUrl}`, employee)
       await dispatch({ type: UPDATE_EMPLOYEE, payload: response.data.employee })
+      await dispatch({ type: CLEAR_EMPLOYEE, payload: {} })
 
       history.push('/')
     } catch (err) {
@@ -70,10 +72,10 @@ export const deleteEmployee = (id) => {
   }
 }
 
-export const cleanEmployee = () => {
+export const clearEmployee = () => {
   return async (dispatch) => {
     try {
-      await dispatch({ type: UPDATE_EMPLOYEE, payload: {} })
+      await dispatch({ type: CLEAR_EMPLOYEE, payload: {} })
     } catch (err) {
       throw (err)
     }

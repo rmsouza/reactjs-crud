@@ -8,7 +8,7 @@ import Paper from '@material-ui/core/Paper'
 import SubHeader from './SubHeader'
 import history from '../../history'
 import './style.css'
-import { createEmployee, getEmployee, updateEmployee, cleanEmployee } from '../../actions'
+import { createEmployee, getEmployee, updateEmployee, clearEmployee } from '../../actions'
 
 const cities = ['Toronto', 'Brampton', 'Mississauga', 'Hamilton']
 
@@ -65,7 +65,7 @@ class EmployeeForm extends Component {
   }
 
   handleCancel = () => {
-    this.props.cleanEmployee()
+    this.props.clearEmployee()
 
     history.push('/')
   }
@@ -220,6 +220,6 @@ const styles = {
 }
 
 const mapStateToProps = (state) => ({ employee: state.employee })
-const mapDispatchToProps = { createEmployee, getEmployee, updateEmployee, cleanEmployee }
+const mapDispatchToProps = { createEmployee, getEmployee, updateEmployee, clearEmployee }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EmployeeForm)
