@@ -4,11 +4,12 @@ import TextField from '@material-ui/core/TextField'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Switch from '@material-ui/core/Switch'
 import Button from '@material-ui/core/Button'
-import Typography from '@material-ui/core/Typography'
-import Divider from '@material-ui/core/Divider'
+import Paper from '@material-ui/core/Paper'
 import { Link } from 'react-router-dom'
+import SubHeader from './SubHeader'
+import history from '../../history'
 import './style.css'
-import { createEmployee, getEmployee, updateEmployee } from '../../actions'
+import { createEmployee, getEmployee, updateEmployee, cleanEmployee } from '../../actions'
 
 const cities = ['Toronto', 'Brampton', 'Mississauga', 'Hamilton']
 
@@ -64,138 +65,142 @@ class EmployeeForm extends Component {
     }
   }
 
+  handleCancel = () => {
+    this.props.cleanEmployee()
+
+    history.push('/')
+  }
+
   render() {
     let { employee } = this.state
 
     return (
       <React.Fragment>
-        <Typography style={styles.title} variant="h5" component="h3">
-          Creating Employee
-        </Typography>
+        <SubHeader />
 
-        <Divider style={styles.divider}/>
+        <Paper className="panel">
+          <form
+            onSubmit={this.handleSubmit}
+            autoComplete="off">
 
-        <form
-          onSubmit={this.handleSubmit}
-          autoComplete="off">
+            <div className="form-row">
+              <TextField
+                id="name"
+                name="name"
+                label="Name"
+                value={employee.name}
+                onChange={this.handleChange}
+                className="textField"
+                variant="outlined"
+                margin="dense"
+                style={styles.textField}
+                required={true}
+              />
 
-          <div className="form-row">
-            <TextField
-              id="name"
-              name="name"
-              label="Name"
-              value={employee.name}
-              onChange={this.handleChange}
-              className="textField"
-              variant="outlined"
-              margin="dense"
-              style={styles.textField}
-              required={true}
-            />
+              <TextField
+                id="code"
+                name="code"
+                label="Code"
+                value={employee.code}
+                onChange={this.handleChange}
+                className="textField"
+                variant="outlined"
+                margin="dense"
+                style={styles.textField}
+                required={true}
+              />
+            </div>
 
-            <TextField
-              id="code"
-              name="code"
-              label="Code"
-              value={employee.code}
-              onChange={this.handleChange}
-              className="textField"
-              variant="outlined"
-              margin="dense"
-              style={styles.textField}
-              required={true}
-            />
-          </div>
+            <div className="form-row">
+              <TextField
+                id="profession"
+                name="profession"
+                label="Profession"
+                value={employee.profession}
+                onChange={this.handleChange}
+                className="textField"
+                variant="outlined"
+                margin="dense"
+                style={styles.textField}
+              />
 
-          <div className="form-row">
-            <TextField
-              id="profession"
-              name="profession"
-              label="Profession"
-              value={employee.profession}
-              onChange={this.handleChange}
-              className="textField"
-              variant="outlined"
-              margin="dense"
-              style={styles.textField}
-            />
+              <TextField
+                id="color"
+                name="color"
+                label="Color"
+                value={employee.color}
+                onChange={this.handleChange}
+                className="textField"
+                variant="outlined"
+                margin="dense"
+                style={styles.textField}
+              />
+            </div>
 
-            <TextField
-              id="color"
-              name="color"
-              label="Color"
-              value={employee.color}
-              onChange={this.handleChange}
-              className="textField"
-              variant="outlined"
-              margin="dense"
-              style={styles.textField}
-            />
-          </div>
+            <div className="form-row">
+              <TextField
+                id="city"
+                name="city"
+                select
+                label="City"
+                value={employee.city}
+                onChange={this.handleChange}
+                SelectProps={{
+                  native: true
+                }}
+                margin="dense"
+                variant="outlined"
+                className="textField"
+                style={styles.textField}
+              >
+                <option value=""></option>
+                {cities.map(option => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </TextField>
 
-          <div className="form-row">
-            <TextField
-              id="city"
-              name="city"
-              select
-              label="City"
-              value={employee.city}
-              onChange={this.handleChange}
-              SelectProps={{
-                native: true
-              }}
-              margin="dense"
-              variant="outlined"
-              className="textField"
-              style={styles.textField}
-            >
-              <option value=""></option>
-              {cities.map(option => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </TextField>
+              <TextField
+                id="branch"
+                name="branch"
+                label="Branch"
+                value={employee.branch}
+                onChange={this.handleChange}
+                className="textField"
+                variant="outlined"
+                margin="dense"
+                style={styles.textField}
+              />
+            </div>
 
-            <TextField
-              id="branch"
-              name="branch"
-              label="Branch"
-              value={employee.branch}
-              onChange={this.handleChange}
-              className="textField"
-              variant="outlined"
-              margin="dense"
-              style={styles.textField}
-            />
-          </div>
+            <div className="form-row">
+              <FormControlLabel
+                className="switch"
+                control={
+                  <Switch
+                    name="assigned"
+                    checked={employee.assigned}
+                    onChange={this.handleCheckboxChange}
+                    value={employee.assigned} />
+                }
+                label="Assigned"
+              />
+            </div>
 
-          <div className="form-row">
-            <FormControlLabel
-              className="switch"
-              control={
-                <Switch
-                  name="assigned"
-                  checked={employee.assigned}
-                  onChange={this.handleCheckboxChange}
-                  value={employee.assigned} />
-              }
-              label="Assigned"
-            />
-          </div>
-
-          <div className="form-actions-row">
-            <Button variant="outlined" className="button" component={Link} to="/" >Cancel</Button>
-            <Button 
-              type="submit"
-              variant="contained"
-              className="button"
-              disabled={this.state.submitted}
-              color="primary">
-              Save
-            </Button>
-          </div>
-        </form>
+            <div className="form-actions-row">
+              <Button variant="outlined" className="button" onClick={this.handleCancel} >Cancel</Button>
+              <Button 
+                type="submit"
+                variant="contained"
+                className="button"
+                disabled={this.state.submitted}
+                color="primary">
+                Save
+              </Button>
+            </div>
+          </form>
+        </Paper>
       </React.Fragment>
     )
   }
@@ -216,6 +221,6 @@ const styles = {
 }
 
 const mapStateToProps = (state) => ({ employee: state.employee })
-const mapDispatchToProps = { createEmployee, getEmployee, updateEmployee }
+const mapDispatchToProps = { createEmployee, getEmployee, updateEmployee, cleanEmployee }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EmployeeForm)

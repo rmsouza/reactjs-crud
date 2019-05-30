@@ -30,3 +30,29 @@ form {
   flex: 1;
   margin: 5px;
 }
+
+.sub-header {
+  padding: 20px 0;
+  display: flex;
+  justify-content: end;
+  flex-direction: row;
+}
+
+@media only screen and (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+  }
+
+  .form-row .textField {
+    width: calc(100vw - 30px);
+  }
+
+  .form-actions-row {
+    padding: 0px;
+    flex-direction: column;
+  }
+
+  .sub-header {
+    margin: 0 10px;
+  }
+}

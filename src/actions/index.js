@@ -70,6 +70,16 @@ export const deleteEmployee = (id) => {
   }
 }
 
+export const cleanEmployee = () => {
+  return async (dispatch) => {
+    try {
+      await dispatch({ type: UPDATE_EMPLOYEE, payload: {} })
+    } catch (err) {
+      throw (err)
+    }
+  }
+}
+
 const receiveEmployees = (employees) => {
   return {
     type: RECEIVE_EMPLOYEES,
