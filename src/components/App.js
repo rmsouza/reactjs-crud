@@ -4,16 +4,16 @@ import Footer from './layout/Footer'
 import EmployeeForm from './EmployeeForm'
 import EmployeeList from './EmployeeList'
 import Paper from '@material-ui/core/Paper'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { Router, Route, Link } from 'react-router-dom'
 import './App.css'
+import history from '../history'
 
 function App() {
   return (
     <div className="app">
       <div>
         <Header />
-          <Router>
-            <Navigation />
+          <Router history={history}>
             <Paper className="container">
               <Route exact path="/" component={EmployeeList} />
               <Route path="/employees/create" component={EmployeeForm} />
@@ -24,14 +24,5 @@ function App() {
     </div>
   )
 }
-
-const Navigation = () => (
-  <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-    <ul className="navbar-nav mr-auto">
-      <li className="nav-item"><Link className="nav-link" to="/">Employees</Link></li>
-      <li className="nav-item"><Link className="nav-link" to="/employees/create">Create Employee</Link></li>
-    </ul>
-  </nav>
-)
 
 export default App

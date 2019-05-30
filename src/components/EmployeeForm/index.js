@@ -6,9 +6,9 @@ import Switch from '@material-ui/core/Switch'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
+import { Link } from 'react-router-dom'
 import './style.css'
 import { createEmployee } from '../../actions'
-import { Link } from 'react-router-dom'
 
 const cities = ['Toronto', 'Brampton', 'Mississauga', 'Hamilton']
 
