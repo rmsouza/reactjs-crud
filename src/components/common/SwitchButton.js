@@ -21,7 +21,7 @@ const SwitchButton = ({ name, value, handleChange, label }) => {
 
 SwitchButton.propTypes = {
   name: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.bool.isRequired,
   handleChange: PropTypes.func.isRequired,
   label: PropTypes.string
 }
